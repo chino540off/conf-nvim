@@ -42,6 +42,10 @@ Plug 'xolox/vim-notes'
 Plug 'sirver/ultisnips'
 Plug 'pgilad/vim-skeletons'
 
+" NvimUX
+Plug 'kassio/neoterm'
+Plug 'BurningEther/nvimux'
+
 " C++14 syntax
 Plug 'octol/vim-cpp-enhanced-highlight'
 " Rust syntax

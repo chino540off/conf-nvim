@@ -30,3 +30,31 @@ let g:notes_directories = [ '~/work/notes' ]
 " Skeletons settings
 let skeletons#autoRegister = 1
 let skeletons#skeletonsDir = g:base_dir . "templates"
+
+" NvimUX settings
+lua << EOF
+local nvimux = require('nvimux')
+
+-- Nvimux configuration
+nvimux.config.set_all{
+  prefix = '<C-a>',
+  open_term_by_default = true,
+  new_window_buffer = 'single',
+  quickterm_direction = 'botright',
+  quickterm_orientation = 'vertical',
+  -- Use 'g' for global quickterm
+  quickterm_scope = 't',
+  quickterm_size = '120',
+}
+
+-- Nvimux custom bindings
+nvimux.bindings.bind_all{
+  {'s', ':NvimuxHorizontalSplit', {'n', 'v', 'i', 't'}},
+  {'v', ':NvimuxVerticalSplit', {'n', 'v', 'i', 't'}},
+}
+
+-- Required so nvimux sets the mappings correctly
+nvimux.bootstrap()
+EOF
+autocmd BufEnter term://* startinsert
+autocmd BufLeave term://* stopinsert

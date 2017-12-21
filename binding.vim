@@ -18,3 +18,4 @@ map <leader>o         :BufExplorer<CR>
 map <leader>D         :Dox<CR>
 
 map <F2>              :NERDTreeToggle<CR>
+map <F3>              :NvimuxToggleTerm<CR>
