@@ -60,6 +60,8 @@ Plug 'mfukar/robotframework-vim'
 Plug 'sudar/vim-arduino-syntax'
 " Markdown syntax
 Plug 'plasticboy/vim-markdown'
+" NixOS syntax
+Plug 'LnL7/vim-nix'
 
 " Initialize plugin system
 call plug#end()
