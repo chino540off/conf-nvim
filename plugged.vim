@@ -4,7 +4,7 @@ function! BuildYCM(info)
   " - status: 'installed', 'updated', or 'unchanged'
   " - force:  set on PlugInstall! or PlugUpdate!
   if a:info.status == 'installed' || a:info.force
-    !./install.py --clang-completer
+    !./install.py --clang-completer --rust-completer
   endif
 endfunction
 
@@ -46,9 +46,17 @@ Plug 'pgilad/vim-skeletons'
 Plug 'kassio/neoterm'
 Plug 'BurningEther/nvimux'
 
+" Grepper
+Plug 'mhinz/vim-grepper', { 'on': ['Grepper', '<plug>(GrepperOperator)'] }
+
+" Python-mode
+Plug 'vim-syntastic/syntastic'
+Plug 'nvie/vim-flake8'
+
 " C++14 syntax
 Plug 'octol/vim-cpp-enhanced-highlight'
-" Rust syntax
+
+" Rust
 Plug 'rust-lang/rust.vim'
 " PlantUML syntax
 Plug 'aklt/plantuml-syntax'
@@ -64,6 +72,7 @@ Plug 'mfukar/robotframework-vim'
 Plug 'sudar/vim-arduino-syntax'
 " Markdown syntax
 Plug 'plasticboy/vim-markdown'
+
 
 " Initialize plugin system
 call plug#end()

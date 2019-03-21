@@ -13,9 +13,13 @@ map <leader><right>   <C-w><right>
 map <leader><left>    <C-w><left>
 
 " Misc bindings
-map <leader>d         :YcmCompleter GoTo<CR>
+map <leader>d         :YcmCompleter GoToDefinitionElseDeclaration<CR>
 map <leader>o         :BufExplorer<CR>
 map <leader>D         :Dox<CR>
 
 map <F2>              :NERDTreeToggle<CR>
 map <F3>              :NvimuxToggleTerm<CR>
+
+
+nmap gs               <plug>(GrepperOperator)
+xmap gs               <plug>(GrepperOperator)
