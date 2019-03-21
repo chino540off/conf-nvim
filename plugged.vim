@@ -4,7 +4,7 @@ function! BuildYCM(info)
   " - status: 'installed', 'updated', or 'unchanged'
   " - force:  set on PlugInstall! or PlugUpdate!
   if a:info.status == 'installed' || a:info.force
-    !./install.py --clang-completer
+    !./install.py --clang-completer --rust-completer
   endif
 endfunction
 
@@ -42,9 +42,21 @@ Plug 'xolox/vim-notes'
 Plug 'sirver/ultisnips'
 Plug 'pgilad/vim-skeletons'
 
+" NvimUX
+Plug 'kassio/neoterm'
+Plug 'BurningEther/nvimux'
+
+" Grepper
+Plug 'mhinz/vim-grepper', { 'on': ['Grepper', '<plug>(GrepperOperator)'] }
+
+" Python-mode
+Plug 'vim-syntastic/syntastic'
+Plug 'nvie/vim-flake8'
+
 " C++14 syntax
 Plug 'octol/vim-cpp-enhanced-highlight'
-" Rust syntax
+
+" Rust
 Plug 'rust-lang/rust.vim'
 " PlantUML syntax
 Plug 'aklt/plantuml-syntax'
@@ -62,6 +74,7 @@ Plug 'sudar/vim-arduino-syntax'
 Plug 'plasticboy/vim-markdown'
 " NixOS syntax
 Plug 'LnL7/vim-nix'
+
 
 " Initialize plugin system
 call plug#end()
