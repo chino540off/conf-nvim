@@ -4,10 +4,10 @@ $(_m)-dirs =	\
   backup	\
   temp
 
-$(_m)-dir-backup	= $(CURDIR)/$(_m)/backup
-$(_m)-dir-temp		= $(CURDIR)/$(_m)/temp
+$(_m)-dir-backup	= $(CURDIR)/nvim/backup
+$(_m)-dir-temp		= $(CURDIR)/nvim/temp
 
 $(_m)-links = 	\
   .
 
-$(_m)-link-.	= ~/.config/$(_m)
+$(_m)-link-.	= ~/.config/nvim
