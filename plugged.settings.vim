@@ -78,3 +78,8 @@ autocmd BufLeave term://* stopinsert
 
 " Rust vim settings
 let g:rustfmt_autosave = 1
+
+" ClangFormat settings
+let g:clang_format#auto_format = 1
+autocmd FileType c,h,cpp,hpp,cc,hh,hxx map <buffer><Leader>x <Plug>(operator-clang-format)
+autocmd FileType c,h,cpp,hpp,cc,hh,hxx ClangFormatAutoEnable

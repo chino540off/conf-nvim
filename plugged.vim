@@ -76,5 +76,9 @@ Plug 'plasticboy/vim-markdown'
 Plug 'LnL7/vim-nix'
 
 
+" Clang-Format
+Plug 'kana/vim-operator-user'
+Plug 'rhysd/vim-clang-format'
+
 " Initialize plugin system
 call plug#end()
