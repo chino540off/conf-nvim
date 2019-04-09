@@ -13,7 +13,10 @@ map <leader><right>   <C-w><right>
 map <leader><left>    <C-w><left>
 
 " Misc bindings
-map <leader>d         :YcmCompleter GoToDefinitionElseDeclaration<CR>
+map <leader>d         :ALEGoToDefinition<CR>
+map <leader>t         :ALEGoToTypeDefinition<CR>
+map <leader><leader>  :bprevious<CR>
+
 map <leader>o         :BufExplorer<CR>
 map <leader>D         :Dox<CR>
 

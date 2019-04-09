@@ -3,22 +3,22 @@ let g:molokai_original = 1
 let g:rehash256 = 1
 colorscheme molokai
 
-" syntastic settings
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+" ALE settings
+let g:ale_sign_error = '>>'
+let g:ale_sign_warning = '--'
+let g:ale_linters_explicit = 1
+let g:ale_completion_enabled = 1
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+let g:ale_statusline_format = ['%d error(s)', '%d warning(s)', 'OK']
+let g:ale_linters = {
+      \ 'cpp': ['ccls'],
+      \ 'python': ['flake8', 'pylint']
+  \ }
 
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
+set completeopt=menu,menuone,preview,noselect,noinsert
 
 " NerdTree settings
-let NERDTreeIgnore = [ '\.pyc$', '\~$' ]
-
-" YouCompleteMe settings
-let g:ycm_autoclose_preview_window_after_completion=1
-let g:ycm_rust_src_path = '~/.rustup/toolchains/1.24.1-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src'
+let NERDTreeIgnore = ['\.pyc$', '\~$' ]
 
 " DoxygenToolkit setting
 let g:load_doxygen_syntax=1
@@ -40,6 +40,8 @@ let g:airline_symbols.paste = 'Þ'
 let g:airline_symbols.paste = '∥'
 let g:airline_symbols.whitespace = 'Ξ'
 let g:airline_theme='molokai'
+
+let g:airline#extensions#ale#enabled = 1
 
 " Notes settings
 let g:notes_directories = [ '~/work/notes' ]

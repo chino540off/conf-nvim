@@ -1,13 +1,3 @@
-function! BuildYCM(info)
-  " info is a dictionary with 3 fields
-  " - name:   name of the plugin
-  " - status: 'installed', 'updated', or 'unchanged'
-  " - force:  set on PlugInstall! or PlugUpdate!
-  if a:info.status == 'installed' || a:info.force
-    !./install.py --clang-completer --rust-completer
-  endif
-endfunction
-
 " Plugins Definitions
 call plug#begin('~/.config/nvim/plugged')
 
@@ -17,15 +7,14 @@ Plug 'tomasr/molokai'
 " BufExplorer
 Plug 'jlanzarotta/bufexplorer'
 
+" Alternate Files
+Plug 'vim-scripts/a.vim'
+
 " NerdTree
 Plug 'scrooloose/nerdtree',	{ 'on':  'NERDTreeToggle' }
 
 " Fugitive
 Plug 'tpope/vim-fugitive'
-
-" YouCompleteMe
-Plug 'Valloric/YouCompleteMe',	{ 'do': function('BuildYCM') }
-Plug 'rdnetto/YCM-Generator',   { 'branch': 'stable' }
 
 " DoxygenToolkit
 Plug 'vim-scripts/DoxygenToolkit.vim'
@@ -49,12 +38,11 @@ Plug 'BurningEther/nvimux'
 " Grepper
 Plug 'mhinz/vim-grepper', { 'on': ['Grepper', '<plug>(GrepperOperator)'] }
 
-" Python-mode
-Plug 'vim-syntastic/syntastic'
-Plug 'nvie/vim-flake8'
+" ALE
+Plug 'w0rp/ale'
 
 " C++14 syntax
-Plug 'octol/vim-cpp-enhanced-highlight'
+Plug 'bfrg/vim-cpp-modern'
 
 " Rust
 Plug 'rust-lang/rust.vim'
