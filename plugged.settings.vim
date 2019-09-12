@@ -11,10 +11,19 @@ let g:ale_completion_enabled = 1
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 let g:ale_statusline_format = ['%d error(s)', '%d warning(s)', 'OK']
 let g:ale_linters = {
-      \ 'cpp': ['ccls'],
-      \ 'python': ['flake8', 'pylint']
-  \ }
+\   'cpp': ['ccls'],
+\   'python': ['pyls', 'black', 'pylint', 'flake8']
+\ }
+let g:ale_fixers = {
+\   'python': ['black']
+\ }
+let g:ale_cpp_ccls_init_options = {
+\   'cache': {
+\       'directory': '/tmp/ccls/cache',
+\   },
+\ }
 
+set omnifunc=ale#completion#OmniFunc
 set completeopt=menu,menuone,preview,noselect,noinsert
 
 " NerdTree settings
@@ -85,3 +94,10 @@ let g:rustfmt_autosave = 1
 let g:clang_format#auto_format = 1
 autocmd FileType c,h,cpp,hpp,cc,hh,hxx map <buffer><Leader>x <Plug>(operator-clang-format)
 autocmd FileType c,h,cpp,hpp,cc,hh,hxx ClangFormatAutoEnable
+
+let g:grepper               = {}
+let g:grepper.tools         = ['ack']
+let g:grepper.jump          = 1
+let g:grepper.next_tool     = '<leader>g'
+let g:grepper.simple_prompt = 1
+let g:grepper.quickfix      = 0

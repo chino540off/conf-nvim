@@ -16,8 +16,9 @@ Plug 'scrooloose/nerdtree',	{ 'on':  'NERDTreeToggle' }
 " Fugitive
 Plug 'tpope/vim-fugitive'
 
-" DoxygenToolkit
+" Doc Toolkit
 Plug 'vim-scripts/DoxygenToolkit.vim'
+Plug 'heavenshell/vim-pydocstring'
 
 " Airline
 Plug 'bling/vim-airline'

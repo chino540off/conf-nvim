@@ -31,6 +31,7 @@ set mouse=a                                                     " enable mouse u
 set shortmess=atI                                               " shortens messages
 set report=0                                                    " report anything
 set noerrorbells                                                " no beep
+set path+=**
 
 " Text formatting
 set tabstop=8
@@ -51,15 +52,18 @@ set foldlevel=0
 set foldopen-=search
 set foldopen-=undo
 
-" Python syntax
-au BufNewFile, BufRead '*.py'
-    \ set tabstop=4
-    \ set softtabstop=4
-    \ set shiftwidth=4
-    \ set textwidth=79
-    \ set expandtab
-    \ set autoindent
-    \ set fileformat=unix
+let g:clipboard = {
+  \   'name': 'xclip-xfce4-clipman',
+  \   'copy': {
+  \      '+': 'xclip -selection clipboard',
+  \      '*': 'xclip -selection clipboard',
+  \    },
+  \   'paste': {
+  \      '+': 'xclip -selection clipboard -o',
+  \      '*': 'xclip -selection clipboard -o',
+  \   },
+  \   'cache_enabled': 1,
+  \ }
 
 """""""""""""""""""""""""""""
 " Includes
