@@ -11,8 +11,9 @@ let g:ale_completion_enabled = 1
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 let g:ale_statusline_format = ['%d error(s)', '%d warning(s)', 'OK']
 let g:ale_linters = {
-\   'cpp': ['ccls'],
-\   'python': ['pyls', 'black', 'pylint', 'flake8']
+\   'cpp': ['clangd'],
+\   'python': ['pyls', 'black', 'pylint', 'flake8'],
+\   'sh': ['shellcheck'],
 \ }
 let g:ale_fixers = {
 \   'python': ['black']
@@ -59,6 +60,10 @@ let g:notes_directories = [ '~/work/notes' ]
 let skeletons#autoRegister = 1
 let skeletons#skeletonsDir = g:base_dir . "templates"
 
+" Black Config
+let g:black_linelength = 120
+autocmd BufWritePre *.py execute ':Black'
+
 " NvimUX settings
 lua << EOF
 local nvimux = require('nvimux')
@@ -89,6 +94,7 @@ autocmd BufLeave term://* stopinsert
 
 " Rust vim settings
 let g:rustfmt_autosave = 1
+let g:rustfmt_emit_files = 1
 
 " ClangFormat settings
 let g:clang_format#auto_format = 1
@@ -101,3 +107,7 @@ let g:grepper.jump          = 1
 let g:grepper.next_tool     = '<leader>g'
 let g:grepper.simple_prompt = 1
 let g:grepper.quickfix      = 0
+
+
+let g:terraform_fold_sections = 1
+let g:terraform_fmt_on_save = 1

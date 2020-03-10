@@ -69,5 +69,14 @@ Plug 'LnL7/vim-nix'
 Plug 'kana/vim-operator-user'
 Plug 'rhysd/vim-clang-format'
 
+" Python Black
+Plug 'psf/black', { 'tag': '19.10b0' }
+
+" Terraform
+Plug 'hashivim/vim-terraform'
+
+" i3
+Plug 'PotatoesMaster/i3-vim-syntax'
+
 " Initialize plugin system
 call plug#end()
