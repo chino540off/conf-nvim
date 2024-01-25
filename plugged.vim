@@ -18,7 +18,7 @@ Plug 'tpope/vim-fugitive'
 
 " Doc Toolkit
 Plug 'vim-scripts/DoxygenToolkit.vim'
-Plug 'heavenshell/vim-pydocstring'
+Plug 'heavenshell/vim-pydocstring', { 'do': 'make install' }
 
 " Airline
 Plug 'bling/vim-airline'
@@ -40,13 +40,15 @@ Plug 'BurningEther/nvimux'
 Plug 'mhinz/vim-grepper', { 'on': ['Grepper', '<plug>(GrepperOperator)'] }
 
 " ALE
-Plug 'w0rp/ale'
+Plug 'dense-analysis/ale'
+
+" Surround
+Plug 'tpope/vim-surround'
+Plug 'preservim/nerdcommenter'
 
 " C++14 syntax
 Plug 'bfrg/vim-cpp-modern'
 
-" Rust
-Plug 'rust-lang/rust.vim'
 " PlantUML syntax
 Plug 'aklt/plantuml-syntax'
 " Groovy syntax
@@ -63,20 +65,24 @@ Plug 'sudar/vim-arduino-syntax'
 Plug 'plasticboy/vim-markdown'
 " NixOS syntax
 Plug 'LnL7/vim-nix'
-
-
-" Clang-Format
-Plug 'kana/vim-operator-user'
-Plug 'rhysd/vim-clang-format'
-
-" Python Black
-Plug 'psf/black', { 'tag': '19.10b0' }
+" Jinja syntax
+Plug 'glench/vim-jinja2-syntax'
+" Run syntax
+Plug 'ron-rs/ron.vim'
+" jsonnet syntax
+Plug 'google/vim-jsonnet'
 
 " Terraform
 Plug 'hashivim/vim-terraform'
 
+" Rust
+Plug 'rust-lang/rust.vim'
+
 " i3
 Plug 'PotatoesMaster/i3-vim-syntax'
+
+" Gitlab MR
+Plug 'file:///home/olivier/work/gitlab-mr/gitlab-mr-plugin'
 
 " Initialize plugin system
 call plug#end()

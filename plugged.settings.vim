@@ -11,18 +11,28 @@ let g:ale_completion_enabled = 1
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 let g:ale_statusline_format = ['%d error(s)', '%d warning(s)', 'OK']
 let g:ale_linters = {
-\   'cpp': ['clangd'],
+\   'cmake': ['cmakelint'],
+\   'rust': ['rls'],
 \   'python': ['pyls', 'black', 'pylint', 'flake8'],
 \   'sh': ['shellcheck'],
 \ }
+
 let g:ale_fixers = {
-\   'python': ['black']
+\   '*': ['remove_trailing_lines', 'trim_whitespace'],
+\   'cmake': ['cmakeformat'],
+\   'cpp': ['clang-format'],
+\   'c': ['clang-format'],
+\   'rust': ['rustfmt'],
+\   'python': ['black', 'isort']
 \ }
-let g:ale_cpp_ccls_init_options = {
-\   'cache': {
-\       'directory': '/tmp/ccls/cache',
-\   },
-\ }
+
+let g:ale_python_black_options = '--line-length 120'
+let g:ale_python_isort_options = '-w 120'
+let g:ale_cmake_cmakeformat_options = '--config .cmake-format.yml --'
+let g:ale_cmake_cmakelint_executable = 'cmake-lint'
+let g:ale_cmake_cmakelint_options = '--config .cmake-format.yml --'
+let g:ale_rust_rustfmt_options = '--edition 2018'
+let g:ale_fix_on_save = 1
 
 set omnifunc=ale#completion#OmniFunc
 set completeopt=menu,menuone,preview,noselect,noinsert
@@ -60,46 +70,21 @@ let g:notes_directories = [ '~/work/notes' ]
 let skeletons#autoRegister = 1
 let skeletons#skeletonsDir = g:base_dir . "templates"
 
-" Black Config
-let g:black_linelength = 120
-autocmd BufWritePre *.py execute ':Black'
-
 " NvimUX settings
 lua << EOF
 local nvimux = require('nvimux')
-
--- Nvimux configuration
-nvimux.config.set_all{
-  prefix = '<C-a>',
-  open_term_by_default = true,
-  new_window_buffer = 'single',
-  quickterm_direction = 'botright',
-  quickterm_orientation = 'vertical',
-  -- Use 'g' for global quickterm
-  quickterm_scope = 't',
-  quickterm_size = '120',
+nvimux.setup{
+  config = {
+    prefix = '<C-a>',
+  },
+  bindings = {
+    {{'n', 'v', 'i', 't'}, 's', nvimux.commands.horizontal_split},
+    {{'n', 'v', 'i', 't'}, 'v', nvimux.commands.vertical_split},
+  }
 }
-
--- Nvimux custom bindings
-nvimux.bindings.bind_all{
-  {'s', ':NvimuxHorizontalSplit', {'n', 'v', 'i', 't'}},
-  {'v', ':NvimuxVerticalSplit', {'n', 'v', 'i', 't'}},
-}
-
--- Required so nvimux sets the mappings correctly
-nvimux.bootstrap()
 EOF
 autocmd BufEnter term://* startinsert
 autocmd BufLeave term://* stopinsert
-
-" Rust vim settings
-let g:rustfmt_autosave = 1
-let g:rustfmt_emit_files = 1
-
-" ClangFormat settings
-let g:clang_format#auto_format = 1
-autocmd FileType c,h,cpp,hpp,cc,hh,hxx map <buffer><Leader>x <Plug>(operator-clang-format)
-autocmd FileType c,h,cpp,hpp,cc,hh,hxx ClangFormatAutoEnable
 
 let g:grepper               = {}
 let g:grepper.tools         = ['ack']
@@ -111,3 +96,6 @@ let g:grepper.quickfix      = 0
 
 let g:terraform_fold_sections = 1
 let g:terraform_fmt_on_save = 1
+
+"Glaive vim-mr-interface gitlab_private_token="HT3bxKgpjdAYBQfeVykb"
+"Glaive vim-mr-interface gitlab_server_address="scm.mrs.antidot.net"

@@ -71,3 +71,7 @@ let g:clipboard = {
 source ~/.config/nvim/binding.vim
 source ~/.config/nvim/plugged.vim
 source ~/.config/nvim/plugged.settings.vim
+
+hi Normal ctermbg=none guibg=none
+
+autocmd BufNewFile,BufRead CMakeLists.txt set syntax=cmake filetype=cmake

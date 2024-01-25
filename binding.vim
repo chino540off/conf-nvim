@@ -37,5 +37,6 @@ map <F3>              :NvimuxToggleTerm<CR>
 
 
 nnoremap <leader>g    :Grepper -tool ack -cword -noprompt<cr>
+nnoremap <leader>G    :Grepper -tool git<cr>
 nmap gs               <plug>(GrepperOperator)
 xmap gs               <plug>(GrepperOperator)
