@@ -82,7 +82,7 @@ Plug 'rust-lang/rust.vim'
 Plug 'PotatoesMaster/i3-vim-syntax'
 
 " Gitlab MR
-Plug 'file:///home/olivier/work/gitlab-mr/gitlab-mr-plugin'
+Plug 'harrisoncramer/gitlab.nvim'
 
 " Initialize plugin system
 call plug#end()
