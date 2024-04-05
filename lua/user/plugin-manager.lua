@@ -41,6 +41,7 @@ lazy.opts = {
 lazy.setup({
   -- Load them from the lua/specs folder
   { import = "specs" },
+  { import = "specs.lang" },
 })
 
 local augroup = vim.api.nvim_create_augroup("lazy_cmds", { clear = true })
