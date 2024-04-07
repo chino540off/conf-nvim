@@ -32,13 +32,20 @@ return {
   -- Ensure Rust debugger is installed
   {
     "williamboman/mason.nvim",
-    optional = true,
     opts = function(_, opts)
       opts.ensure_installed = opts.ensure_installed or {}
-      vim.list_extend(opts.ensure_installed, { "codelldb" })
+      vim.list_extend(opts.ensure_installed, { "codelldb", "rustfmt" })
     end,
   },
-
+  {
+    "stevearc/conform.nvim",
+    optional = true,
+    opts = {
+      formatters_by_ft = {
+        rust = { "rustfmt" },
+      },
+    },
+  },
   {
     "mrcjkb/rustaceanvim",
     version = "^4", -- Recommended
