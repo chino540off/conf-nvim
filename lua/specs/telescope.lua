@@ -13,6 +13,9 @@ Plugin.dependencies = {
   {
     "nvim-telescope/telescope-smart-history.nvim",
   },
+  {
+    "nvim-telescope/telescope-file-browser.nvim",
+  },
 }
 
 Plugin.cmd = "Telescope"
@@ -21,25 +24,28 @@ function Plugin.init()
   local bind = vim.keymap.set
 
   -- Search pattern
-  bind("n", "<leader>fg", "<cmd>Telescope live_grep<cr>")
+  bind("n", "<leader>tfg", "<cmd>Telescope live_grep<cr>")
 
   -- Show key bindings list
-  bind("n", "<leader>?", "<cmd>Telescope keymaps<cr>")
+  bind("n", "<leader>t?", "<cmd>Telescope keymaps<cr>")
 
   -- Find files by name
-  bind("n", "<leader>ff", "<cmd>Telescope find_files<cr>")
+  bind("n", "<leader>tff", "<cmd>Telescope find_files<cr>")
 
   -- Search symbols in buffer
-  bind("n", "<leader>fs", "<cmd>Telescope treesitter<cr>")
+  bind("n", "<leader>tfs", "<cmd>Telescope treesitter<cr>")
 
   -- Search buffer lines
-  bind("n", "<leader>fb", "<cmd>Telescope current_buffer_fuzzy_find<cr>")
+  bind("n", "<leader>tbf", "<cmd>Telescope current_buffer_fuzzy_find<cr>")
+
+  -- Open file_browser
+  bind("n", "<leader>tfb", "<cmd>Telescope file_browser<cr>")
 
   -- Search in files history
-  bind("n", "<leader>fh", "<cmd>Telescope oldfiles<cr>")
+  bind("n", "<leader>tfh", "<cmd>Telescope oldfiles<cr>")
 
   -- Search in active buffers list
-  bind("n", "<leader>bb", "<cmd>Telescope buffers<cr>")
+  bind("n", "<leader>tbb", "<cmd>Telescope buffers<cr>")
 end
 
 function Plugin.config()
@@ -116,11 +122,25 @@ function Plugin.config()
         override_generic_sorter = true,
         override_file_sorter = true,
       },
+      file_browser = {
+        theme = "ivy",
+        -- disables netrw and use telescope-file-browser in its place
+        hijack_netrw = true,
+        mappings = {
+          ["i"] = {
+            -- your custom insert mode mappings
+          },
+          ["n"] = {
+            -- your custom normal mode mappings
+          },
+        },
+      },
     },
   })
 
   telescope.load_extension("fzy_native")
   telescope.load_extension("smart_history")
+  telescope.load_extension("file_browser")
 end
 
 function user.job_output(cid, data, name)
