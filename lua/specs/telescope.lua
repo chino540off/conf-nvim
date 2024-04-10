@@ -10,6 +10,9 @@ Plugin.dependencies = {
       user.build_fzy()
     end,
   },
+  {
+    "nvim-telescope/telescope-smart-history.nvim",
+  },
 }
 
 Plugin.cmd = "Telescope"
@@ -72,6 +75,8 @@ function Plugin.config()
           ["<M-k>"] = actions.move_selection_previous,
           ["<M-j>"] = actions.move_selection_next,
           ["<M-b>"] = actions.select_default,
+          ["<C-Down>"] = actions.cycle_history_next,
+          ["<C-Up>"] = actions.cycle_history_prev,
         },
       },
 
@@ -84,6 +89,10 @@ function Plugin.config()
         preview_cutoff = 25,
         mirror = true,
         prompt_position = "top",
+      },
+      history = {
+        path = "~/.local/share/nvim/databases/telescope_history.sqlite3",
+        limit = 100,
       },
     },
     pickers = {
@@ -111,6 +120,7 @@ function Plugin.config()
   })
 
   telescope.load_extension("fzy_native")
+  telescope.load_extension("smart_history")
 end
 
 function user.job_output(cid, data, name)
