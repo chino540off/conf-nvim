@@ -126,7 +126,13 @@ return {
           },
         },
         pickers = {
-          buffers = dropdown(),
+          buffers = vim.tbl_deep_extend("error", dropdown("Buffers"), {
+            mappings = {
+              i = {
+                ["<c-d>"] = actions.delete_buffer + actions.move_to_top,
+              },
+            },
+          }),
           find_files = dropdown(),
           oldfiles = dropdown("History"),
           keymaps = dropdown(),
