@@ -45,7 +45,7 @@ return {
       -- Search pattern
       bind("n", "<leader>tg", function()
         builtin.live_grep({
-          default_text = vim.fn.expand("<cword>"),
+          default_text = "\\b" .. vim.fn.expand("<cword>") .. "\\b",
         })
       end)
       bind("n", "<leader>tG", "<cmd>Telescope live_grep<cr>")
