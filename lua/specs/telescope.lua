@@ -98,6 +98,7 @@ return {
 
       telescope.setup({
         defaults = {
+          path_display = { "truncate" },
           mappings = {
             i = {
               ["<esc>"] = actions.close,
