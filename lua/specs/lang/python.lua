@@ -22,7 +22,7 @@ return {
       },
       formatters = {
         black = {
-          prepend_args = { "--line-length", "120" },
+          prepend_args = { "--line-length", "100" },
         },
       },
     },
@@ -38,7 +38,7 @@ return {
               plugins = {
                 pycodestyle = {
                   ignore = {},
-                  maxLineLength = 120,
+                  maxLineLength = 100,
                 },
               },
             },

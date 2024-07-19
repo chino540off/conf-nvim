@@ -68,6 +68,7 @@ return {
       },
       ensure_installed = {
         "c",
+        "comment",
         "cpp",
         "css",
         "git_config",

@@ -35,6 +35,9 @@ return {
       {
         "nvim-telescope/telescope-file-browser.nvim",
       },
+      {
+        "jvgrootveld/telescope-zoxide",
+      },
     },
 
     cmd = "Telescope",
@@ -69,7 +72,9 @@ return {
       bind("n", "<leader>th", "<cmd>Telescope oldfiles<cr>")
 
       -- Search in active buffers list
-      bind("n", "<leader>tb", "<cmd>Telescope buffers<cr>")
+      bind("n", "<leader>tb", function()
+        builtin.buffers({ sort_lastused = true, ignore_current_buffer = true })
+      end)
     end,
     config = function()
       local command = vim.api.nvim_create_user_command
@@ -171,6 +176,7 @@ return {
       telescope.load_extension("fzy_native")
       telescope.load_extension("smart_history")
       telescope.load_extension("file_browser")
+      telescope.load_extension("zoxide")
     end,
   },
 }
