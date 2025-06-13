@@ -2,10 +2,14 @@
 local bind = vim.keymap.set
 
 -- Leader
-vim.g.mapleader = ' '
+vim.g.mapleader = " "
 
 -- Move into splits
-bind('n', '<leader><up>', '<C-w><up>')
-bind('n', '<leader><down>', '<C-w><down>')
-bind('n', '<leader><right>', '<C-w><right>')
-bind('n', '<leader><left>', '<C-w><left>')
+bind("n", "<leader><up>", "<C-w><up>")
+bind("n", "<leader><down>", "<C-w><down>")
+bind("n", "<leader><right>", "<C-w><right>")
+bind("n", "<leader><left>", "<C-w><left>")
+bind("n", "<leader>p", ":bprev<cr>")
+bind("n", "<leader>n", ":bnext<cr>")
+
+bind("n", "<leader><leader>", ":NvimTreeToggle<cr>", { silent = true, noremap = true })

@@ -30,4 +30,16 @@ return {
       })
     end,
   },
+  {
+    "danymat/neogen",
+    config = function()
+      require("neogen").setup({
+        enabled = true,
+      })
+      local map = function(mode, keymap, func)
+        vim.api.nvim_set_keymap(mode, keymap, func, { noremap = true, silent = true })
+      end
+      map("n", "<Leader>D", ":lua require('neogen').generate()<CR>")
+    end,
+  },
 }

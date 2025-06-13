@@ -2,10 +2,8 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
 
-    pin = true,
-
     dependencies = {
-      { "nvim-treesitter/nvim-treesitter-textobjects", pin = true },
+      { "nvim-treesitter/nvim-treesitter-textobjects" },
     },
 
     opts = {

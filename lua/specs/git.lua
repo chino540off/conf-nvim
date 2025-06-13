@@ -1,35 +1,31 @@
 return {
   {
+    "sindrets/diffview.nvim",
+    config = function()
+      --local diff = require("diffview.actions")
+      require("diffview").setup({
+        view = {
+          default = {
+            -- Config for changed files, and staged files in diff views.
+            layout = "diff2_horizontal",
+          },
+          merge_tool = {
+            -- Config for conflicted files in diff views during a merge or rebase.
+            layout = "diff3_horizontal",
+          },
+          file_history = {
+            -- Config for changed files in file history views.
+            layout = "diff2_horizontal",
+          },
+        },
+      })
+    end,
+  },
+  {
     "NeogitOrg/neogit",
     dependencies = {
       { "nvim-lua/plenary.nvim" },
       { "nvim-telescope/telescope.nvim" },
-      {
-        "sindrets/diffview.nvim",
-        cmd = { "DiffviewOpen" },
-        config = function()
-          local diff = require("diffview.actions")
-          require("diffview").setup({
-            use_icons = false,
-            view = {
-              default = {
-                layout = "diff2_vertical",
-              },
-              merge_tool = {
-                layout = "diff3_mixed",
-              },
-            },
-            keymaps = {
-              view = {
-                { "n", "<M-h>", diff.conflict_choose("ours"), { desc = "Choose ours" } },
-                { "n", "<M-l>", diff.conflict_choose("theirs"), { desc = "Choose theirs" } },
-                { "n", "<M-j>", diff.next_conflict, { desc = "Go to next conflict" } },
-                { "n", "<M-k>", diff.prev_conflict, { desc = "Go to previous conflict" } },
-              },
-            },
-          })
-        end,
-      },
     },
 
     cmd = "Neogit",
@@ -57,12 +53,12 @@ return {
     "lewis6991/gitsigns.nvim",
     opts = {
       signs = {
-        add = { text = "┃" },
-        change = { text = "┃" },
-        delete = { text = "_" },
-        topdelete = { text = "‾" },
-        changedelete = { text = "~" },
-        untracked = { text = "┆" },
+        --add = { text = "┃" },
+        --change = { text = "┃" },
+        --delete = { text = "_" },
+        --topdelete = { text = "‾" },
+        --changedelete = { text = "~" },
+        --untracked = { text = "┆" },
       },
       on_attach = function(buffer)
         local gs = package.loaded.gitsigns
@@ -92,16 +88,31 @@ return {
     dependencies = {
       "MunifTanjim/nui.nvim",
       "nvim-lua/plenary.nvim",
-      "sindrets/diffview.nvim",
-      -- "stevearc/dressing.nvim", -- Recommended but not required. Better UI for pickers.
-      -- "nvim-tree/nvim-web-devicons", -- Recommended but not required. Icons in discussion tree.
+      "stevearc/dressing.nvim", -- Recommended but not required. Better UI for pickers.
+      "nvim-tree/nvim-web-devicons", -- Recommended but not required. Icons in discussion tree.
     },
     enabled = true,
     build = function()
       require("gitlab.server").build(true)
     end, -- Builds the Go binary
     config = function()
-      require("gitlab").setup()
+      local gitlab = require("gitlab")
+      gitlab.setup()
+
+      local function map(mode, l, r)
+        vim.keymap.set(mode, l, r)
+      end
+
+      local is_reviewing = false
+      map("", "<leader>glR", function()
+        if not is_reviewing then
+          gitlab.review()
+          is_reviewing = true
+        else
+          gitlab.close_review()
+          is_reviewing = false
+        end
+      end)
     end,
   },
 }

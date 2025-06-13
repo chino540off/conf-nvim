@@ -6,15 +6,18 @@ return {
     "hrsh7th/cmp-nvim-lsp",
 
     -- Useful completion sources:
+    "onsails/lspkind.nvim",
     "hrsh7th/cmp-nvim-lua",
     "hrsh7th/cmp-buffer",
     "hrsh7th/cmp-path",
     "hrsh7th/cmp-cmdline",
     "saadparwaiz1/cmp_luasnip",
     "L3MON4D3/LuaSnip",
+    "f3fora/cmp-spell",
   },
   config = function()
     local cmp = require("cmp")
+    local lspkind = require("lspkind")
     vim.opt.completeopt = { "menu", "menuone", "noselect" }
 
     cmp.setup({
@@ -29,16 +32,19 @@ return {
       },
       formatting = {
         fields = { "menu", "abbr", "kind" },
-        format = function(entry, item)
-          local menu_icon = {
-            nvim_lsp = "λ",
-            vsnip = "⋗",
-            buffer = "Ω",
-            path = "🖫",
-          }
-          item.menu = menu_icon[entry.source.name]
-          return item
-        end,
+        expandable_indicator = true,
+        format = lspkind.cmp_format({
+          mode = "symbol_text",
+          menu = {
+            buffer = "[Buffer]",
+            nvim_lsp = "[LSP]",
+            luasnip = "[LuaSnip]",
+            nvim_lua = "[Lua]",
+            latex_symbols = "[Latex]",
+            path = "[Path]",
+            spell = "[Spell]",
+          },
+        }),
       },
       mapping = cmp.mapping.preset.insert({
         ["<C-b>"] = cmp.mapping.scroll_docs(-4),
@@ -65,14 +71,32 @@ return {
           },
         },
         { name = "path" },
+        {
+          name = "spell",
+          option = {
+            keep_all_entries = false,
+            enable_in_context = function()
+              --return require("cmp.config.context").in_treesitter_capture("spell")
+              return true
+            end,
+            preselect_correct_word = true,
+          },
+        },
       }),
     })
 
-    cmp.setup.cmdline(":", {
+    cmp.setup.cmdline("/", {
       mapping = cmp.mapping.preset.cmdline(),
+      sources = { { name = "buffer" } },
+    })
+    cmp.setup.cmdline(":", {
+      mapping = cmp.mapping.preset.cmdline({
+        --["<Tab>"] = { c = function() end },
+        --["<S-Tab>"] = { c = function() end },
+      }),
       sources = cmp.config.sources({
-        { name = "path" },
-        { name = "cmdline" },
+        { name = "path", option = { trailing_slash = true } },
+        { name = "cmdline", option = { treat_trailing_slash = false } },
       }),
     })
   end,

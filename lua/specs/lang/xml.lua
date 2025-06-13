@@ -1,25 +1,23 @@
 return {
-  -- Add Nix & related to treesitter
   {
     "nvim-treesitter/nvim-treesitter",
     opts = function(_, opts)
       opts.ensure_installed = opts.ensure_installed or {}
-      vim.list_extend(opts.ensure_installed, { "nix" })
+      vim.list_extend(opts.ensure_installed, { "xml" })
     end,
   },
   {
-    "mason-org/mason.nvim",
+    "williamboman/mason.nvim",
     opts = function(_, opts)
       opts.ensure_installed = opts.ensure_installed or {}
-      vim.list_extend(opts.ensure_installed, { "alejandra" })
+      vim.list_extend(opts.ensure_installed, { "xmlformatter" })
     end,
   },
   {
     "stevearc/conform.nvim",
-    optional = true,
     opts = {
       formatters_by_ft = {
-        nix = { "alejandra" },
+        ["xml"] = { "xmlformatter" },
       },
     },
   },

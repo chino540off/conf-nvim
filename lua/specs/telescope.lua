@@ -73,7 +73,7 @@ return {
 
       -- Search in active buffers list
       bind("n", "<leader>tb", function()
-        builtin.buffers({ sort_lastused = true, ignore_current_buffer = true })
+        builtin.buffers({ sort_lastused = true, ignore_current_buffer = false })
       end)
     end,
     config = function()

@@ -1,5 +1,61 @@
 return {
   {
+    "catppuccin/nvim",
+    config = function()
+      require("catppuccin").setup({
+        flavour = "auto", -- latte, frappe, macchiato, mocha
+        background = { -- :h background
+          light = "latte",
+          dark = "mocha",
+        },
+        transparent_background = false, -- disables setting the background color.
+        show_end_of_buffer = false, -- shows the '~' characters after the end of buffers
+        term_colors = false, -- sets terminal colors (e.g. `g:terminal_color_0`)
+        dim_inactive = {
+          enabled = true, -- dims the background color of inactive window
+          shade = "dark",
+          percentage = 0.15, -- percentage of the shade to apply to the inactive window
+        },
+        no_italic = false, -- Force no italic
+        no_bold = false, -- Force no bold
+        no_underline = false, -- Force no underline
+        styles = { -- Handles the styles of general hi groups (see `:h highlight-args`):
+          comments = { "italic" }, -- Change the style of comments
+          conditionals = { "italic" },
+          loops = {},
+          functions = {},
+          keywords = {},
+          strings = {},
+          variables = {},
+          numbers = {},
+          booleans = {},
+          properties = {},
+          types = {},
+          operators = {},
+          -- miscs = {}, -- Uncomment to turn off hard-coded styles
+        },
+        color_overrides = {},
+        custom_highlights = {},
+        default_integrations = true,
+        integrations = {
+          cmp = true,
+          gitsigns = true,
+          nvimtree = true,
+          treesitter = true,
+          notify = true,
+          mini = {
+            enabled = true,
+            indentscope_color = "",
+          },
+          -- For more plugins integrations please scroll down (https://github.com/catppuccin/nvim#integrations)
+        },
+      })
+
+      -- setup must be called before loading
+      vim.cmd.colorscheme("catppuccin")
+    end,
+  },
+  {
     "echasnovski/mini.indentscope",
     version = false, -- wait till new 0.7.0 release to put it back on semver
     opts = {
@@ -104,92 +160,14 @@ return {
       vim.o.timeout = true
       vim.o.timeoutlen = 300
     end,
-    opts = {
-      plugins = {
-        marks = true, -- shows a list of your marks on ' and `
-        registers = true, -- shows your registers on " in NORMAL or <C-r> in INSERT mode
-        -- the presets plugin, adds help for a bunch of default keybindings in Neovim
-        -- No actual key bindings are created
-        spelling = {
-          enabled = true, -- enabling this will show WhichKey when pressing z= to select spelling suggestions
-          suggestions = 20, -- how many suggestions should be shown in the list?
-        },
-        presets = {
-          operators = true, -- adds help for operators like d, y, ...
-          motions = true, -- adds help for motions
-          text_objects = true, -- help for text objects triggered after entering an operator
-          windows = true, -- default bindings on <c-w>
-          nav = true, -- misc bindings to work with windows
-          z = true, -- bindings for folds, spelling and others prefixed with z
-          g = true, -- bindings for prefixed with g
-        },
-      },
-      -- add operators that will trigger motion and text object completion
-      -- to enable all native operators, set the preset / operators plugin above
-      operators = { gc = "Comments" },
-      key_labels = {
-        -- override the label used to display some keys. It doesn't effect WK in any other way.
-        -- For example:
-        -- ["<space>"] = "SPC",
-        -- ["<cr>"] = "RET",
-        -- ["<tab>"] = "TAB",
-      },
-      motions = {
-        count = true,
-      },
-      icons = {
-        breadcrumb = "»", -- symbol used in the command line area that shows your active key combo
-        separator = "➜", -- symbol used between a key and it's label
-        group = "+", -- symbol prepended to a group
-      },
-      popup_mappings = {
-        scroll_down = "<c-d>", -- binding to scroll down inside the popup
-        scroll_up = "<c-u>", -- binding to scroll up inside the popup
-      },
-      window = {
-        border = "single", -- none, single, double, shadow
-        position = "bottom", -- bottom, top
-        margin = { 1, 0, 1, 0 }, -- extra window margin [top, right, bottom, left]. When between 0 and 1, will be treated as a percentage of the screen size.
-        padding = { 1, 2, 1, 2 }, -- extra window padding [top, right, bottom, left]
-        winblend = 0, -- value between 0-100 0 for fully opaque and 100 for fully transparent
-        zindex = 1000, -- positive value to position WhichKey above other floating windows.
-      },
-      layout = {
-        height = { min = 4, max = 25 }, -- min and max height of the columns
-        width = { min = 20, max = 50 }, -- min and max width of the columns
-        spacing = 3, -- spacing between columns
-        align = "left", -- align columns left, center or right
-      },
-      ignore_missing = false, -- enable this to hide mappings for which you didn't specify a label
-      hidden = { "<silent>", "<cmd>", "<Cmd>", "<CR>", "^:", "^ ", "^call ", "^lua " }, -- hide mapping boilerplate
-      show_help = true, -- show a help message in the command line for using WhichKey
-      show_keys = true, -- show the currently pressed key and its label as a message in the command line
-      triggers = "auto", -- automatically setup triggers
-      -- triggers = {"<leader>"} -- or specifiy a list manually
-      -- list of triggers, where WhichKey should not wait for timeoutlen and show immediately
-      triggers_nowait = {
-        -- marks
-        "`",
-        "'",
-        "g`",
-        "g'",
-        -- registers
-        '"',
-        "<c-r>",
-        -- spelling
-        "z=",
-      },
-      triggers_blacklist = {
-        -- list of mode / prefixes that should never be hooked by WhichKey
-        -- this is mostly relevant for keymaps that start with a native binding
-        i = { "j", "k" },
-        v = { "j", "k" },
-      },
-      -- disable the WhichKey popup for certain buf types and file types.
-      -- Disabled by default for Telescope
-      disable = {
-        buftypes = {},
-        filetypes = {},
+    opts = {},
+    keys = {
+      {
+        "<leader>?",
+        function()
+          require("which-key").show({ global = false })
+        end,
+        desc = "Buffer Local Keymaps (which-key)",
       },
     },
   },
@@ -362,7 +340,103 @@ return {
     },
   },
   {
-    "echasnovski/mini.icons",
-    version = false,
+    "nvim-tree/nvim-web-devicons",
+  },
+  {
+    "nvim-tree/nvim-tree.lua",
+    version = "*",
+    lazy = false,
+    dependencies = {
+      "nvim-tree/nvim-web-devicons",
+    },
+    config = function()
+      local HEIGHT_RATIO = 0.8 -- You can change this
+      local WIDTH_RATIO = 0.5 -- You can change this too
+
+      require("nvim-tree").setup({
+        on_attach = function(bufnr)
+          local api = require("nvim-tree.api")
+
+          local function opts(desc)
+            return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
+          end
+
+          -- default mappings
+          api.config.mappings.default_on_attach(bufnr)
+
+          -- custom mappings
+          vim.keymap.set("n", "<C-t>", api.tree.change_root_to_parent, opts("Up"))
+          vim.keymap.set("n", "?", api.tree.toggle_help, opts("Help"))
+        end,
+        view = {
+          float = {
+            enable = true,
+            open_win_config = function()
+              local screen_w = vim.opt.columns:get()
+              local screen_h = vim.opt.lines:get() - vim.opt.cmdheight:get()
+              local window_w = screen_w * WIDTH_RATIO
+              local window_h = screen_h * HEIGHT_RATIO
+              local window_w_int = math.floor(window_w)
+              local window_h_int = math.floor(window_h)
+              local center_x = (screen_w - window_w) / 2
+              local center_y = ((vim.opt.lines:get() - window_h) / 2) - vim.opt.cmdheight:get()
+              return {
+                border = "rounded",
+                relative = "editor",
+                row = center_y,
+                col = center_x,
+                width = window_w_int,
+                height = window_h_int,
+              }
+            end,
+          },
+          width = function()
+            return math.floor(vim.opt.columns:get() * WIDTH_RATIO)
+          end,
+        },
+      })
+    end,
+  },
+  {
+    "ThePrimeagen/harpoon",
+    branch = "harpoon2",
+    opts = {
+      menu = {
+        width = vim.api.nvim_win_get_width(0) - 4,
+      },
+      settings = {
+        save_on_toggle = true,
+      },
+    },
+    keys = function()
+      local keys = {
+        {
+          "<leader>H",
+          function()
+            require("harpoon"):list():add()
+          end,
+          desc = "Harpoon File",
+        },
+        {
+          "<leader>h",
+          function()
+            local harpoon = require("harpoon")
+            harpoon.ui:toggle_quick_menu(harpoon:list())
+          end,
+          desc = "Harpoon Quick Menu",
+        },
+      }
+
+      for i = 1, 5 do
+        table.insert(keys, {
+          "<leader>" .. i,
+          function()
+            require("harpoon"):list():select(i)
+          end,
+          desc = "Harpoon to File " .. i,
+        })
+      end
+      return keys
+    end,
   },
 }
