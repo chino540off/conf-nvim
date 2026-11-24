@@ -11,47 +11,28 @@ return {
     "mason-org/mason.nvim",
     opts = function(_, opts)
       opts.ensure_installed = opts.ensure_installed or {}
-      vim.list_extend(opts.ensure_installed, { "black", "python-lsp-server", "mypy", "flake8" })
+      vim.list_extend(opts.ensure_installed, { "black", "python-lsp-server", "mypy", "flake8", "isort" })
+    end,
+  },
+  {
+    "mason-org/mason-lspconfig.nvim",
+    opts = function(_, opts)
+      opts.ensure_installed = opts.ensure_installed or {}
+      vim.list_extend(opts.ensure_installed, { "pyrefly" })
     end,
   },
   {
     "stevearc/conform.nvim",
     opts = {
       formatters_by_ft = {
-        ["python"] = { "black" },
+        ["python"] = { "black", "isort" },
       },
       formatters = {
         black = {
           prepend_args = { "--fast" },
         },
-      },
-    },
-  },
-  {
-    "neovim/nvim-lspconfig",
-    opts = {
-      servers = {
-        pylsp = {
-          enabled = true,
-          settings = {
-            pylsp = {
-              plugins = {
-                pycodestyle = {
-                  enabled = true,
-                  ignore = {},
-                  maxLineLength = 100,
-                },
-                flake8 = {
-                  enabled = true,
-                  maxLineLength = 100,
-                },
-                pylsp_mypy = {
-                  enabled = true,
-                  strict = true,
-                },
-              },
-            },
-          },
+        isort = {
+          prepend_args = { "--line-length", "120", "--profile", "black" },
         },
       },
     },

@@ -92,6 +92,18 @@ return {
         -- end,
         -- Specify * to use this function as a fallback for any server
         -- ["*"] = function(server, opts) end,
+        servers = {
+          ["*"] = {
+            keys = {
+              {
+                "<leader>co",
+                function()
+                  vim.lsp.buf.code_action({})
+                end,
+              },
+            },
+          },
+        },
       },
     },
     ---@param opts PluginLspOpts
@@ -107,6 +119,13 @@ return {
         vim.fn.sign_define(name, { text = icon, texthl = name, numhl = "" })
       end
       vim.diagnostic.config(vim.deepcopy(opts.diagnostics))
+
+      vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
+      vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, {})
+      vim.keymap.set("n", "<leader>gr", vim.lsp.buf.references, {})
+      vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, {})
+      vim.keymap.set("n", "<leader>gf", vim.lsp.buf.format, {})
+      vim.keymap.set("n", "<space>rn", vim.lsp.buf.rename, {})
     end,
   },
 }

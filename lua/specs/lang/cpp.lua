@@ -33,7 +33,12 @@ return {
     opts = {
       servers = {
         clangd = {
-          enabled = false,
+          enabled = true,
+          settings = {
+            clangd = {
+              cmd = { "clangd --clang-tidy" },
+            },
+          },
         },
       },
     },
